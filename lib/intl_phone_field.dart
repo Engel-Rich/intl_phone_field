@@ -1,14 +1,12 @@
-library intl_phone_field;
-
 import 'dart:async';
-import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:intl_phone_field/country_picker_dialog.dart';
-import 'package:intl_phone_field/helpers.dart';
-
 import './countries.dart';
 import './phone_number.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:intl_phone_field/helpers.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:intl_phone_field/country_picker_dialog.dart';
+// library intl_phone_field;
 
 class IntlPhoneField extends StatefulWidget {
   /// The TextFormField key.
@@ -248,10 +246,12 @@ class IntlPhoneField extends StatefulWidget {
 
   /// If null, default magnification configuration will be used.
   final TextMagnifierConfiguration? magnifierConfiguration;
+  final int? maxLenght;
 
   const IntlPhoneField({
     Key? key,
     this.formFieldKey,
+    this.maxLenght,
     this.initialCountryCode,
     this.languageCode = 'en',
     this.disableAutoFillHints = false,
@@ -436,7 +436,7 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
 
         return validatorMessage;
       },
-      maxLength: widget.disableLengthCheck ? null : _selectedCountry.maxLength,
+      maxLength: widget.maxLenght ?? (widget.disableLengthCheck ? null : _selectedCountry.maxLength),
       keyboardType: widget.keyboardType,
       inputFormatters: widget.inputFormatters,
       enabled: widget.enabled,
